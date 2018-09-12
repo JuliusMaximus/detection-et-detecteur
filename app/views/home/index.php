@@ -4,7 +4,9 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="/css/nav.css">
 	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/css/footer.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 	<title>Détection et détecteurs</title>
