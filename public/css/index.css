@@ -1,3 +1,33 @@
+/*---------MAP----------*/
+.map {
+  overflow: hidden; }
 
+.map__image svg {
+  max-width: 100%;
+  height: 100%; }
+
+.map__image path {
+  fill: #757575;
+  stroke: #fff;
+  stroke-width: 0.1rem;
+  transition: fill 0.3s; }
+
+.map__image .is-active path {
+  fill: #ff8c00; }
+
+.map__list a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s; }
+
+.map__list a.is-active {
+  color: #ff8c00; }
+
+.list-group-item {
+  padding: .3rem 1rem !important; }
+
+@media all and (max-width: 991px) {
+  .map__list ul {
+    display: none; } }
 
 /*# sourceMappingURL=index.css.map */

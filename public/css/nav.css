@@ -10,20 +10,8 @@
   background-color: #ff8c00 !important;
   color: rgba(0, 0, 0, 0.7) !important; }
 
-.dropdown-menu {
-  border: 1px solid #ff8c00 !important; }
-
-.dropdown-divider {
-  border-top: 1px solid #ff8c00 !important; }
-
-.modal-content {
-  border: 1px solid #ff8c00 !important; }
-
 .modal-header {
-  border-bottom: 1px solid #ff8c00 !important; }
-
-.modal-footer {
-  border-top: 1px solid #ff8c00 !important; }
+  background: #ff8c00 !important; }
 
 @media all and (max-width: 991px) {
   .dropdown-menu-right {
