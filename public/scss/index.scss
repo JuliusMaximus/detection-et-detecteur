@@ -1,5 +1,48 @@
 @import "variables";
 
+
+/*-------- NAV-PILLS--------*/
+
+.nav-pills .nav-link.active {
+	background: $color-orange !important;
+	color: #fff !important;
+	i {
+		float: right;
+		padding: .3rem;
+	}
+}
+
+.nav-pills .nav-link {
+	color: $color-orange !important;
+	transition: all .5s;
+}
+
+.nav-pills .nav-link:hover {
+	font-weight: bold !important;
+}
+
+.col-lg-3 {
+	padding: 0 !important;
+}
+
+@media all and (max-width: 575px) {
+	img.float-right {
+		float: none !important;
+	}
+
+	.col-sm-3 {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+@media all and (max-width: 991px) {
+	.col-lg-9 {
+		margin-top: 1rem;
+	}
+}
+
+
 /*---------MAP----------*/
 .map {
 	overflow: hidden;

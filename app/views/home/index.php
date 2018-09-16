@@ -16,8 +16,48 @@
 		<?php include 'nav.php'; ?>
 	</header>
 	<section>
-		<article>
-			
+		<article class="container mt-5">
+			<div class="row">
+			  <div class="col-lg-3">
+			    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-utilisation" role="tab" aria-controls="v-pills-home" aria-selected="true">Utilisation <i class="fas fa-angle-right"></i></a>
+			      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-inscription" role="tab" aria-controls="v-pills-profile" aria-selected="false">Inscription <i class="fas fa-angle-right"></i></a>
+			      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-annonces" role="tab" aria-controls="v-pills-messages" aria-selected="false">Annonces <i class="fas fa-angle-right"></i></a>
+			    </div>
+			  </div>
+			  <div class="col-lg-9">
+			    <div class="tab-content" id="v-pills-tabContent">
+			      <div class="tab-pane fade show active" id="v-pills-utilisation" role="tabpanel" aria-labelledby="v-pills-utilisation-tab">
+			     	 <div class="row">
+	     	 			<div class="col-sm-3"><img class="float-right" src="/public/img/icon-map.png"></div>
+					    <div class="col-sm-9">
+					    	<h2 class="h3">Pour une sortie détection à plusieurs !</h2>
+					    	<p>Cette application a principalement pour objectif de mettre en relation les utilisateurs de détecteurs de métaux. Cliquez sur une région pour voir les prospécteurs inscrit, les associations et les annonces.</p>
+					    </div>
+					</div>
+			  	  </div>
+			      <div class="tab-pane fade" id="v-pills-inscription" role="tabpanel" aria-labelledby="v-pills-inscription-tab">
+			      	<div class="row">
+	     	 			<div class="col-sm-3"><img class="float-right" src="/public/img/icon-account.png"></div>
+					    <div class="col-sm-9">
+					    	<h2 class="h3">Tchat en ligne !</h2>
+					    	<p>L'inscription n'est pas obligatoire mais elle permet de contacter les autres membres via le chat, en message privé ! Il vous sera juste demander votre e-mail et un mot de passe, qui vous donnera accès à votre espace membres et vos messages.</p>
+					    </div>
+					</div>
+			      </div>
+			      <div class="tab-pane fade" id="v-pills-annonces" role="tabpanel" aria-labelledby="v-pills-annonces-tab">
+			      	<div class="row">
+	     	 			<div class="col-sm-3"><img class="float-right" src="/public/img/icon-annonce.png"></div>
+					    <div class="col-sm-9">
+					    	<h2 class="h3">Déposer une annonces !</h2>
+					    	<p>Pour vendre votre détecteur de métaux, des accessoires de détection ou proposer vos services. Le service est gratuit et ne nécessite pas d'inscription.</p>
+					    	<a href="#"><button type="button" class="btn btn-outline-warning">Déposer une annonce</button></a>
+					    </div>
+					</div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 		</article>
 		<article class="d-flex justyfy-content-center container mt-5 map" id="map">
 			<div class="row">

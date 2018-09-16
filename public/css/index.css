@@ -1,3 +1,31 @@
+/*-------- NAV-PILLS--------*/
+.nav-pills .nav-link.active {
+  background: #ff8c00 !important;
+  color: #fff !important; }
+  .nav-pills .nav-link.active i {
+    float: right;
+    padding: .3rem; }
+
+.nav-pills .nav-link {
+  color: #ff8c00 !important;
+  transition: all .5s; }
+
+.nav-pills .nav-link:hover {
+  font-weight: bold !important; }
+
+.col-lg-3 {
+  padding: 0 !important; }
+
+@media all and (max-width: 575px) {
+  img.float-right {
+    float: none !important; }
+
+  .col-sm-3 {
+    display: flex;
+    justify-content: center; } }
+@media all and (max-width: 991px) {
+  .col-lg-9 {
+    margin-top: 1rem; } }
 /*---------MAP----------*/
 .map {
   overflow: hidden; }
