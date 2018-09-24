@@ -42,10 +42,16 @@
 .map__list a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.3s; }
+  transition: color 0.3s;
+  display: block;
+  padding: 0; }
 
 .map__list a.is-active {
-  color: #ff8c00; }
+  color: #fff; }
+
+.list-group li:hover {
+  background: #ff8c00;
+  color: #fff; }
 
 .list-group-item {
   padding: .3rem 1rem !important; }
