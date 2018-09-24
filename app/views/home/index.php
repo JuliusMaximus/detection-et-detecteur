@@ -49,9 +49,11 @@
 			      	<div class="row">
 	     	 			<div class="col-sm-3"><img class="float-right" src="/public/img/icon-annonce.png"></div>
 					    <div class="col-sm-9">
-					    	<h2 class="h3">Déposer une annonces !</h2>
-					    	<p>Pour vendre votre détecteur de métaux, des accessoires de détection ou proposer vos services. Le service est gratuit et ne nécessite pas d'inscription.</p>
-					    	<a href="#"><button type="button" class="btn btn-outline-warning">Déposer une annonce</button></a>
+					    	<div class="row d-flex justify-content-between">
+					    		<h2 class="h3">la partie annonces !</h2>
+					    		<a href="#"><button type="button" class="btn btn-outline-warning btn-sm">Déposer une annonce</button></a>
+					    	</div>
+					    	<p>Pour vendre ou trouver votre détecteur de métaux, des accessoires de détection ou proposer vos services. Le service est gratuit et ne nécessite pas d'inscription.</p>
 					    </div>
 					</div>
 			      </div>
