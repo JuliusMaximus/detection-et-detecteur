@@ -65,14 +65,16 @@
 	transition: color 0.3s;
 	display: block;
 	padding: 0;
+	margin: 0;
 }
 
 .map__list a.is-active {
 	color: #fff;
 }
 
-.list-group li {
-	
+.map__list li.is-active {
+	background: $color-orange;
+	color: #fff;
 }
 
 .list-group li:hover {

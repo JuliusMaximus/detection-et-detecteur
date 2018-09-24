@@ -44,9 +44,14 @@
   text-decoration: none;
   transition: color 0.3s;
   display: block;
-  padding: 0; }
+  padding: 0;
+  margin: 0; }
 
 .map__list a.is-active {
+  color: #fff; }
+
+.map__list li.is-active {
+  background: #ff8c00;
   color: #fff; }
 
 .list-group li:hover {

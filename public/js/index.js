@@ -6,6 +6,8 @@ var paths = map.querySelectorAll(".map__image a");
 
 var links = map.querySelectorAll(".map__list a");
 
+var li = map.querySelectorAll(".map__list li");
+
 // Polyfill du foreach
 if (NodeList.prototype.forEach === undefined) {
 	NodeList.prototype.forEach = function (callback) {
@@ -22,6 +24,7 @@ var activeArea = function (id) {
 
 	if (id !== undefined) {
 		document.querySelector('#list-' + id).classList.add('is-active');
+		document.querySelector('#li-' + id).classList.add('is-active');
 		document.querySelector('#FR-' + id).classList.add('is-active');
 	};
 };
@@ -39,6 +42,7 @@ links.forEach(function (link) {
 		activeArea(id);
 	});
 });
+
 /*supprime la coloration en sortant du path
 grace à la condition dans la function activeArea */
 map.addEventListener('mouseover', function() {

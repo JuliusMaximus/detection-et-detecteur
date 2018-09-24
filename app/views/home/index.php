@@ -85,19 +85,19 @@
 				</div>
 				<div class="map__list col-lg-4 d-flex flex-column justify-content-center p-5">
 					<ul class="list-group">
-						<li class="list-group-item"><a href="#" id="list-GES">Grand Est</a></li>
-						<li class="list-group-item"><a href="#" id="list-NAQ">Nouvelle-Aquitaine</a></li>
-						<li class="list-group-item"><a href="#" id="list-ARA">Auvergne-Rhône-Alpes</a></li>
-						<li class="list-group-item"><a href="#" id="list-BFC">Bourgogne-Franche-Comté</a></li>
-						<li class="list-group-item"><a href="#" id="list-BRE">Bretagne</a></li>
-						<li class="list-group-item"><a href="#" id="list-CVL">Centre-Val de Loire</a></li>
-						<li class="list-group-item"><a href="#" id="list-COR">Corse</a></li>
-						<li class="list-group-item"><a href="#" id="list-IDF">Île-de-France</a></li>
-						<li class="list-group-item"><a href="#" id="list-OCC">Occitanie</a></li>
-						<li class="list-group-item"><a href="#" id="list-HDF">Hauts-de-France</a></li>
-						<li class="list-group-item"><a href="#" id="list-NOR">Normandie</a></li>
-						<li class="list-group-item"><a href="#" id="list-PDL">Pays de la Loire</a></li>
-						<li class="list-group-item"><a href="#" id="list-PAC">Provence-Alpes-Côte d'Azur</a></li>
+						<li id="li-GES" class="list-group-item"><a href="#" id="list-GES">Grand Est</a></li>
+						<li id="li-NAQ" class="list-group-item"><a href="#" id="list-NAQ">Nouvelle-Aquitaine</a></li>
+						<li id="li-ARA" class="list-group-item"><a href="#" id="list-ARA">Auvergne-Rhône-Alpes</a></li>
+						<li id="li-BFC" class="list-group-item"><a href="#" id="list-BFC">Bourgogne-Franche-Comté</a></li>
+						<li id="li-BRE" class="list-group-item"><a href="#" id="list-BRE">Bretagne</a></li>
+						<li id="li-CVL" class="list-group-item"><a href="#" id="list-CVL">Centre-Val de Loire</a></li>
+						<li id="li-COR" class="list-group-item"><a href="#" id="list-COR">Corse</a></li>
+						<li id="li-IDF" class="list-group-item"><a href="#" id="list-IDF">Île-de-France</a></li>
+						<li id="li-OCC" class="list-group-item"><a href="#" id="list-OCC">Occitanie</a></li>
+						<li id="li-HDF" class="list-group-item"><a href="#" id="list-HDF">Hauts-de-France</a></li>
+						<li id="li-NOR" class="list-group-item"><a href="#" id="list-NOR">Normandie</a></li>
+						<li id="li-PDL" class="list-group-item"><a href="#" id="list-PDL">Pays de la Loire</a></li>
+						<li id="li-PAC" class="list-group-item"><a href="#" id="list-PAC">Provence-Alpes-Côte d'Azur</a></li>
 					</ul>
 				</div>
 			</div>
