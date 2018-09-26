@@ -1,7 +1,7 @@
 <?php
 // Gestion de la communication avec la BDD
 class DB extends PDO {
-  const DSN = 'mysql:host=localhost;dbname=tutoadmin';
+  const DSN = 'mysql:host=localhost;dbname=bdd-detection';
   const USER = 'root';
   const PASSWORD = '';
 

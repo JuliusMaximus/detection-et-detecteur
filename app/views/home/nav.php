@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-light" id="topOfPage">
   <div class="container">
     <!-- menu burger -->
@@ -27,8 +26,8 @@
         <div class="dropdown-menu dropdown-menu-right">
         <form action="" method="post" class="px-4 py-3" role="form">
           <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" class="form-control" id="email" placeholder="email@example.com">
+            <label for="pseudoConnexion">Pseudo</label>
+            <input type="text" class="form-control" id="pseudoConnexion">
           </div>
           <div class="form-group">
             <label for="password">Mot de passe</label>
@@ -37,47 +36,17 @@
           <button type="submit" class="btn btn-warning">Connexion</button>
         </form>
         <div class="dropdown-divider"></div>
-        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#inscription">
-          Pas encore inscrit?
-        </button>
+        <a type="button" class="btn btn-primary m-1" href="/inscription">
+          Inscription !
+        </a>
         <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#forgetpPassword">
-          Mot de passe oublié?
+          Mot de passe oublié ?
         </button>
       </div>
       </div> 
     </div>
   </div>
 </nav>
-<!-- Modal inscription -->
-<div class="modal fade" id="inscription" tabindex="-1" role="dialog" aria-labelledby="Title" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="Title">Inscription</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="" method="post" role="form">
-          <div class="form-group">
-            <label for="emailInscription">Adresse e-mail</label>
-            <input type="email" class="form-control" id="emailInscription" aria-describedby="emailHelp" placeholder="exemple@email.com">
-            <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email avec quiconque.</small>
-          </div>
-          <div class="form-group">
-            <label for="passwordInscription">Mot de passe</label>
-            <input type="password" class="form-control" id="passwordInscription" placeholder="*******">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="submit" class="btn btn-primary">Valider</button>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Modal forget password -->
 <div class="modal fade" id="forgetpPassword" tabindex="-1" role="dialog" aria-labelledby="Title" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

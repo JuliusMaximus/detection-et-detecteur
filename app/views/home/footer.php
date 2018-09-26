@@ -1,5 +1,5 @@
 <footer class="mt-5">
-   <div class="container-fluid py-3">
+   <div class="container-fluid py-3 mt-3 mb-2">
     <div class="container">
       <div class="row">
         <div class="col-md-9">
@@ -12,7 +12,7 @@
             <div class="col-sm-11">
                 <div>
                     <p class="ml-3"><span class="header-font">D</span>étection<span class="header-font">&</span>détecteurs.com</p>
-                    <ul class="ml-3">
+                    <ul class="ml-3 mb-4">
                       <li><a href="/">Accueil</a></li>
                       <li><a href="#">déposer une annonce</a></li>
                       <li><a href="#">La détection de métaux</a></li>

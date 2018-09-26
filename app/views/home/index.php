@@ -1,3 +1,10 @@
+<?php if(isset($_SESSION['flash'])): ?>
+<script>
+    $(document).ready(function(){
+      $('#inscription').modal('show');
+    });
+ </script>
+<?php endif; ?>
 <!DOCTYPE html>
 <html>
 <head>
