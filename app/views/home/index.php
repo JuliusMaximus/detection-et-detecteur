@@ -24,6 +24,9 @@
 	</header>
 	<section>
 		<article class="container mt-5">
+			<?php if ( isset( $data['erreur'] ) ) : ?>
+		      <div class="alert alert-danger"><?= $data['erreur'] ?></div>
+		    <?php endif; ?>
 			<div class="row">
 			  <div class="col-lg-3">
 			    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -68,6 +71,7 @@
 			  </div>
 			</div>
 		</article>
+		<hr>
 		<article class="container mt-5 map" id="map">
 			<div class="row">
 				<div class="map__image col-lg-8 p-5">

@@ -13,6 +13,11 @@
 .modal-header {
   background: #ff8c00 !important; }
 
+.list-group-flush li a {
+  color: #000; }
+  .list-group-flush li a:hover {
+    color: #fff; }
+
 @media all and (max-width: 991px) {
   .dropdown-menu-right {
     right: auto !important;

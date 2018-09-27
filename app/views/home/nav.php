@@ -20,29 +20,44 @@
       </ul>
       <!-- account connexion -->
       <div class="btn-group dropdown">
+        <?php if (isset($_SESSION['id'])) : ?>
         <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Mon compte <i class="far fa-user"></i>
         </button>
-        <div class="dropdown-menu dropdown-menu-right">
-        <form action="" method="post" class="px-4 py-3" role="form">
-          <div class="form-group">
-            <label for="pseudoConnexion">Pseudo</label>
-            <input type="text" class="form-control" id="pseudoConnexion">
-          </div>
-          <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" class="form-control" id="password" placeholder="*******">
-          </div>
-          <button type="submit" class="btn btn-warning">Connexion</button>
-        </form>
-        <div class="dropdown-divider"></div>
-        <a type="button" class="btn btn-primary m-1" href="/inscription">
-          Inscription !
-        </a>
-        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#forgetpPassword">
-          Mot de passe oublié ?
+        <?php else : ?>
+        <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Connexion <i class="fas fa-lock"></i>
         </button>
-      </div>
+        <?php endif; ?>
+        <div class="dropdown-menu dropdown-menu-right">
+          <?php if (isset($_SESSION['id'])) : ?>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="">Mon profil</a></li>
+            <li class="list-group-item"><a href="">Mes messages</a></li>
+            <li class="list-group-item"><a href="">Modifier mot de passe</a></li>
+            <li class="list-group-item"><a href="/home/deconnexion">Déconnexion</a></li>
+          </ul>
+          <?php else : ?>
+          <form action="/home/connexion" method="post" class="px-4 py-3" role="form">
+            <div class="form-group">
+              <label for="pseudoConnexion">Pseudo</label>
+              <input type="text" class="form-control" id="pseudoConnexion" name="pseudoConnexion">
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="*******">
+            </div>
+            <button type="submit" class="btn btn-warning">Connexion</button>
+          </form>
+          <div class="dropdown-divider"></div>
+          <a type="button" class="btn btn-primary m-1" href="/inscription">
+            Inscription !
+          </a>
+          <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#forgetpPassword">
+            Mot de passe oublié ?
+          </button>
+          <?php endif; ?>
+        </div>
       </div> 
     </div>
   </div>
