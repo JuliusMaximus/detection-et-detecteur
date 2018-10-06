@@ -1,10 +1,3 @@
-<?php if(isset($_SESSION['flash'])): ?>
-<script>
-    $(document).ready(function(){
-      $('#inscription').modal('show');
-    });
- </script>
-<?php endif; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +17,12 @@
 	</header>
 	<section>
 		<article class="container mt-5">
-			<?php if ( isset( $data['erreur'] ) ) : ?>
-		      <div class="alert alert-danger"><?= $data['erreur'] ?></div>
-		    <?php endif; ?>
+			<?php if (isset($data['erreur']['email'])) : ?>
+	          <div class="alert alert-warning"><?= $data['erreur']['email'] ?></div>
+	        <?php endif; ?>
+	        <?php if (isset($data['success']['validation'])) : ?>
+          <div class="alert alert-success"><?= $data['success']['validation'] ?></div>
+        <?php endif; ?>
 			<div class="row">
 			  <div class="col-lg-3">
 			    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">

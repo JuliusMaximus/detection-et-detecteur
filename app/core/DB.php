@@ -77,11 +77,12 @@ class DB extends PDO {
     if ( $params ) {
       $req = $bdd->prepare( $query );
       $req->execute( $params );
+
     }
     else {
       $req = $bdd->query( $query );
     }
-
+    
     $updated = $req->rowCount();
 
     return $updated;

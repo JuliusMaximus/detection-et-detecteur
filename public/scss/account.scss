@@ -1,0 +1,42 @@
+@import 'variables';
+
+body {
+	margin: 0;
+}
+
+section {
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 60vh;
+}
+
+.account {
+	background: $color-orange;
+	color: #fff;
+	transition: all .7s ease-out !important;
+	&:hover {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+
+.avatar img{
+	border:4px solid #efefef;
+	padding:4px;
+}
+
+label {
+	font-weight: 600;
+}
+
+@media all and (max-width: 576px) {
+	#buttons {
+		flex-direction: column !important;
+	}
+
+	.account:hover {
+		margin-left: 1rem !important;
+		margin-right: 1rem !important;
+	}
+}

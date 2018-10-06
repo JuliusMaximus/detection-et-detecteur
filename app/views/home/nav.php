@@ -22,7 +22,7 @@
       <div class="btn-group dropdown">
         <?php if (isset($_SESSION['id'])) : ?>
         <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Mon compte <i class="far fa-user"></i>
+          Connecté <i class="far fa-user"></i>
         </button>
         <?php else : ?>
         <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,9 +32,7 @@
         <div class="dropdown-menu dropdown-menu-right">
           <?php if (isset($_SESSION['id'])) : ?>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><a href="">Mon profil</a></li>
-            <li class="list-group-item"><a href="">Mes messages</a></li>
-            <li class="list-group-item"><a href="">Modifier mot de passe</a></li>
+            <li class="list-group-item"><a href="/account">Mon compte</a></li>
             <li class="list-group-item"><a href="/home/deconnexion">Déconnexion</a></li>
           </ul>
           <?php else : ?>
@@ -53,7 +51,7 @@
           <a type="button" class="btn btn-primary m-1" href="/inscription">
             Inscription !
           </a>
-          <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#forgetpPassword">
+          <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#forgetPassword">
             Mot de passe oublié ?
           </button>
           <?php endif; ?>
@@ -63,7 +61,7 @@
   </div>
 </nav>
 <!-- Modal forget password -->
-<div class="modal fade" id="forgetpPassword" tabindex="-1" role="dialog" aria-labelledby="Title" aria-hidden="true">
+<div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="Title" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,17 +71,23 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" role="form">
+        <?php if (isset($data['erreur']['email'])) : ?>
+          <div class="alert alert-danger"><?= $data['erreur']['email'] ?></div>
+        <?php endif; ?>
+        <?php if (isset($data['success']['validation'])) : ?>
+          <div class="alert alert-success"><?= $data['success']['validation'] ?></div>
+        <?php endif; ?>
+        <form action="/home/forgetPassword" method="post" role="form">
           <div class="form-group">
             <label for="emailRecup">Adresse e-mail</label>
-            <input type="email" class="form-control" id="emailrecup" aria-describedby="emailHelp" placeholder="exemple@email.com">
+            <input type="email" class="form-control" id="emailrecup" name="emailrecup" aria-describedby="emailHelp" placeholder="exemple@email.com">
             <small id="emailHelp" class="form-text text-muted">Entrez l'adresse email renseignée lors de votre incription.<br>Vous y recevrez un nouveau mot de passe.</small>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Valider</button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Valider</button>
       </div>
     </div>
   </div>

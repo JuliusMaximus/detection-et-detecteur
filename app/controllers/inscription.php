@@ -17,6 +17,12 @@ class Inscription extends Controller {
       if (empty($pseudo)) {
         $erreur['pseudo'] = 'Pseudo manquant !';
       }
+      elseif ($pseudo < 3) {
+        $erreur['pseudo'] = 'Pseudo trop court. 3 caractères min !';
+      }
+      elseif (!$this->pseudo_free()) {
+        $erreur['pseudo'] = 'Ce pseudo est déjà utilisé !';
+      }
 
       if (empty($email)) {
         $erreur['email'] = 'Adresse e-mail manquante !';
@@ -69,6 +75,18 @@ class Inscription extends Controller {
 
   private function mail_free() : bool {
     $member = DB::select('SELECT id FROM member WHERE email = ?', [$_POST['email']]);
+
+    if ($member) {
+      return false;
+    }
+
+    else {
+      return true;
+    }
+  }
+
+  private function pseudo_free() : bool {
+    $member = DB::select('SELECT id FROM member WHERE pseudo = ?', [$_POST['pseudo']]);
 
     if ($member) {
       return false;

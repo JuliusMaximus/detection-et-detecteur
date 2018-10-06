@@ -4,7 +4,19 @@ class Home extends Controller {
     $this->view( 'home/index', []);
   }
 
-  // Connexion à l'espace d'administration
+  // Permet de vérifier les données de connexion
+  private function accountExists($pseudo, $password) : array {
+    $member = DB::select( 'SELECT id, password FROM member WHERE pseudo = ?', [$pseudo] );
+
+    if ($member && password_verify( $password, $member[0]['password'])) {
+      return $member[0];
+    }
+    else {
+      return [];
+    }
+  }
+
+  // Connexion à l'espace membre
   public function connexion() {
     if ( isset( $_SESSION['id'] ) ) {
       header( 'Location: /account' );
@@ -50,15 +62,76 @@ class Home extends Controller {
     header( 'Location: /' );
   }
   
-  // Permet de vérifier les données de connexion
-  private function accountExists($pseudo, $password) : array {
-    $member = DB::select( 'SELECT id, password FROM member WHERE pseudo = ?', [$pseudo] );
+  
+  // Gestion de l'oubli de mot de passe
+  public function forgetPassword() {
+  	if (isset($_SESSION['id'])) {
+  		header('Location: /account.php');
+	}
 
-    if ($member && password_verify( $password, $member[0]['password'])) {
-      return $member[0];
+	if (!empty($_POST)) {
+	  extract($_POST);
+	  $erreur = [];
+	  $success = [];
+
+	  if (empty($emailrecup)) {
+	    $erreur['email'] = 'Adresse e-mail manquante !';
+	  }
+	  elseif (!filter_var($emailrecup, FILTER_VALIDATE_EMAIL)) {
+	    $erreur['email'] = 'Adresse e-mail invalide !';
+	  }
+	  elseif ($this->mail_free($emailrecup)) {
+	    $erreur['email'] = 'Adresse e-mail inconnue !';
+	  }
+
+	  if (!$erreur) {
+	    $password = bin2hex(random_bytes(8));
+
+	    $this->password_update($password, $emailrecup);
+
+	    $message = '
+	    <h1> Voici votre nouveau mot de passe : </h1>
+	    <p>
+	      Mot de passe : <b>' . $password . '</b><br>
+	      Pensez à le modifier lors de votre prochaine visite !
+	    </p>
+	    ';
+
+	    $this->mail_html('Nouveau mot de passe', $message);
+
+	    unset($emailrecup);
+
+	    $success['validation'] = "Nouveau mot de passe envoyé !";
+	  }
+	  $this->view('home/index', ['erreur' => $erreur, 'success' => $success]);
+	}
+	$this->view('home/index');
+  }
+
+  private function mail_free(string $email) : bool {
+    $member = DB::select('SELECT id FROM member WHERE email = ?', [$email]);
+
+    if ($member) {
+      return false;
     }
+
     else {
-      return [];
+      return true;
     }
+  }
+
+  private function mail_html(string $subject, string $message) {
+	$headers = 'From: Julien <contact@weckjulien.fr>' . "\r\n";
+	$headers .= 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=utf-8';
+
+    mail($_POST['emailrecup'], $subject, $message, $headers);
+  }
+
+  private function password_update(string $password, string $email) {
+	DB::update('UPDATE member SET password = :password WHERE email = :email', [
+		'password' => password_hash($password, PASSWORD_DEFAULT),
+		'email'    => $email
+	]);
   }
 }

@@ -26,13 +26,13 @@
 			<form action="/contact/mail_contact" method="post" class="mt-5 mb-5" role="form">
 				<!-- Affichage des erreurs -->
 			  <?php if ( isset( $data['erreur']['name'] ) ) : ?>
-			    <div class="alert alert-danger"><?= $data['erreur']['name'] ?></div>
+			    <div class="alert alert-warning"><?= $data['erreur']['name'] ?></div>
 		      <?php endif; ?>
 			  <?php if ( isset( $data['erreur']['email'] ) ) : ?>
-		        <div class="alert alert-danger"><?= $data['erreur']['email'] ?></div>
+		        <div class="alert alert-warning"><?= $data['erreur']['email'] ?></div>
 		      <?php endif; ?>
 		      <?php if ( isset( $data['erreur']['message'] ) ) : ?>
-		        <div class="alert alert-danger"><?= $data['erreur']['message'] ?></div>
+		        <div class="alert alert-warning"><?= $data['erreur']['message'] ?></div>
 		      <?php endif; ?>
 		      <?php if ( isset( $data['success']['mailSend'] ) ) : ?>
 		        <div class="alert alert-success"><?= $data['success']['mailSend'] ?></div>
