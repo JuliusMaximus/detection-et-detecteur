@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Accueil</a>
+          <a class="nav-link" href="/">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">La détection de métaux</a>
+          <a class="nav-link" href="/ladetection">La détection de métaux</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Déposer une annonce</a>
+          <a class="nav-link" href="/annonces">Déposer une annonce</a>
         </li>
       </ul>
       <!-- account connexion -->

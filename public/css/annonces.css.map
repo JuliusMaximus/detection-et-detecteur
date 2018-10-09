@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,IAAK;EACJ,MAAM,EAAE,CAAC;;AAGV,OAAQ;EACP,OAAO,EAAE,eAAe;EACxB,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,MAAM;EACvB,UAAU,EAAE,IAAI;;AAGjB,KAAM;EACL,QAAQ,EAAC,MAAM",
+"sources": ["../scss/annonces.scss"],
+"names": [],
+"file": "annonces.css"
+}

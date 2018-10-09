@@ -28,6 +28,15 @@
 	}
 }
 
+.list-group li:hover {
+	background: $color-orange;
+	color: #fff;
+}
+
+.list-group-item {
+	padding: .3rem 1rem !important;
+}
+
 
 @media all and (max-width: 991px) {
 	.dropdown-menu-right {

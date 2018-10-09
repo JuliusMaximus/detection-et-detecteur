@@ -47,7 +47,7 @@
 	     	 			<div class="col-sm-3"><img class="float-right" src="/public/img/icon-account.png"></div>
 					    <div class="col-sm-9">
 					    	<h2 class="h3">Tchat en ligne !</h2>
-					    	<p>L'inscription n'est pas obligatoire mais elle permet de contacter les autres membres via le chat, en message privé ! Il vous sera juste demander votre e-mail et un mot de passe, qui vous donnera accès à votre espace membres et vos messages.</p>
+					    	<p>L'inscription n'est pas obligatoire mais elle permet de contacter les autres membres via le chat, en message privé !<br>Faites connaissance et organisez vos sorties détections.</p>
 					    </div>
 					</div>
 			      </div>
@@ -59,7 +59,7 @@
 					    		<h2 class="h3">la partie annonces !</h2>
 					    		<a href="#"><button type="button" class="btn btn-outline-warning btn-sm">Déposer une annonce</button></a>
 					    	</div>
-					    	<p>Pour vendre ou trouver votre détecteur de métaux, des accessoires de détection ou proposer vos services. Le service est gratuit et ne nécessite pas d'inscription.</p>
+					    	<p>Pour vendre ou trouver votre détecteur de métaux, des accessoires de détection ou proposer vos services.<br>Le service est gratuit et vous devez être inscrit.</p>
 					    </div>
 					</div>
 			      </div>

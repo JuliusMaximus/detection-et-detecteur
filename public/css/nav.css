@@ -18,6 +18,13 @@
   .list-group-flush li a:hover {
     color: #fff; }
 
+.list-group li:hover {
+  background: #ff8c00;
+  color: #fff; }
+
+.list-group-item {
+  padding: .3rem 1rem !important; }
+
 @media all and (max-width: 991px) {
   .dropdown-menu-right {
     right: auto !important;

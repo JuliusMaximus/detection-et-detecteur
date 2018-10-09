@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="Jean Forteroche, auteur et écrivain. Découvrez mon parcours et mon univers.">
+	<meta name="description" content="Formulaire de contact du site détecteurs et détection">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="/css/contact.css">
 	<link rel="stylesheet" href="/css/nav.css">

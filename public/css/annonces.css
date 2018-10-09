@@ -1,0 +1,13 @@
+body {
+  margin: 0; }
+
+section {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh; }
+
+input {
+  overflow: hidden; }
+
+/*# sourceMappingURL=annonces.css.map */

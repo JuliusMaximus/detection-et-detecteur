@@ -54,13 +54,6 @@
   background: #ff8c00;
   color: #fff; }
 
-.list-group li:hover {
-  background: #ff8c00;
-  color: #fff; }
-
-.list-group-item {
-  padding: .3rem 1rem !important; }
-
 @media all and (max-width: 991px) {
   .map__list ul {
     display: none; } }

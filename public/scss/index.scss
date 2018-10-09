@@ -76,15 +76,6 @@
 	background: $color-orange;
 	color: #fff;
 }
-
-.list-group li:hover {
-	background: $color-orange;
-	color: #fff;
-}
-
-.list-group-item {
-	padding: .3rem 1rem !important;
-}
 // Pas de liste sur les petits écrans
 @media all and (max-width: 991px) {
 	.map__list ul {
