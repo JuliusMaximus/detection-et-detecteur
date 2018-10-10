@@ -1,4 +1,3 @@
-<?php var_dump($_FILES['picture']) ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -42,6 +41,7 @@
 			        <div class="alert alert-warning"><?= $data['erreur']['send'] ?></div>
 			    <?php endif; ?>
 			    <?php if ( isset( $data['success']['validation'] ) ) : ?>
+			    	<?php unset($_POST['title'], $_POST['descAnnonce'], $_POST['price']);?>
 			        <div class="alert alert-success"><?= $data['success']['validation'] ?></div>
 			    <?php endif; ?>		
 			    <div class="form-group">

@@ -1,0 +1,35 @@
+.navbar {
+  background-color: #ededed !important;
+  border-bottom: 0.3rem solid #ff8c00; }
+
+form, h1 {
+  margin-bottom: 3rem;
+  padding: 1rem; }
+
+.text-xs-center {
+  text-align: center; }
+
+form {
+  background: #efefef;
+  border-radius: 0.5rem; }
+
+input {
+  text-align: center;
+  height: 3rem;
+  width: 100%;
+  margin-bottom: 2rem; }
+
+input[type=submit] {
+  width: 100%;
+  margin-bottom: 0; }
+
+h1 {
+  margin-top: 3rem; }
+
+.fas.fa-check-square {
+  color: #D39E00; }
+
+.far.fa-check-square {
+  color: #919191; }
+
+/*# sourceMappingURL=admin.css.map */
