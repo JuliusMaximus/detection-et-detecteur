@@ -37,16 +37,17 @@ class Annonces extends Controller {
                 $extension = str_replace('image/', '', $_FILES['picture']['type']);
                 $name = bin2hex(random_bytes(8)) . '.' .$extension;
 
-                if (move_uploaded_file($_FILES['picture']['tmp_name'], ROOT.'/public/img/img_annonces/' . $name)) {
+                if (move_uploaded_file($_FILES['picture']['tmp_name'], ROOT.'public/img/img_annonces/' . $name)) {
                     // insertion de l'annonce en BDD
-                    DB::insert('INSERT INTO annonces (post_id, title, descAnnonce, price, picture, region, dpt) VALUES (:post_id, :title, :descAnnonce, :price, :picture, :region, :dpt)', [
-                      'post_id' => $membre[0]['id'],
-                      'title'     => htmlspecialchars($title),
+                    DB::insert('INSERT INTO annonces (post_id, pseudo, title, descAnnonce, price, picture, region, dpt) VALUES (:post_id, :pseudo, :title, :descAnnonce, :price, :picture, :region, :dpt)', [
+                      'post_id'     => $membre[0]['id'],
+                      'pseudo'      =>  $membre[0]['pseudo'],
+                      'title'       => htmlspecialchars($title),
                       'descAnnonce' => htmlspecialchars($descAnnonce),
-                      'price' => htmlspecialchars($price),
-                      'picture' => $name,
-                      'region' => $membre[0]['region'],
-                      'dpt' => $membre[0]['dpt']
+                      'price'       => htmlspecialchars($price),
+                      'picture'     => $name,
+                      'region'      => $membre[0]['region'],
+                      'dpt'         => $membre[0]['dpt']
                     ]);
 
                     $success['validation']= 'Votre annonces a bien été soumise et sera publiée dans les 24h !';

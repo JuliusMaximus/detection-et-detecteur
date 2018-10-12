@@ -6,13 +6,36 @@ class Account extends Controller {
 	    }
 	    $membre = $this->account_informations();
 
-	    $this->view( 'home/account', ['membre' => $membre]);
+	    $annonces = DB::select('SELECT * FROM annonces WHERE post_id = ?', [$_SESSION['id']]);
+
+	    // Formatage de la date^pour chaque annonces
+        foreach ( $annonces as $key => $annonce ) {
+        	$date = date_create( $annonce['created_at'] );
+        	$annonces[$key]['created_at'] = date_format( $date, 'd/m/Y' );
+    	}
+
+	    $this->view( 'home/account', ['membre' => $membre, 'annonces' => $annonces]);
     }
 
     private function account_informations() : array {
 		$membre = DB::select('SELECT * FROM member WHERE id = ?', [$_SESSION['id']]);
 
 		return $membre[0];
+	}
+
+	 // Suppression d'un article
+	public function deleteAnnonce( int $idAnnonce ) {
+	    if ( !isset( $_SESSION['id'] ) ) {
+	        header( 'Location: /admin/connexion' );
+	    }
+
+	    $annonce = DB::select( 'SELECT picture from annonces where id = ?', [$idAnnonce] );
+
+	    unlink( ROOT . 'public/img/img_annonces' . $annonce[0]['picture'] ); // suppression image
+
+	    DB::delete( 'DELETE FROM annonces WHERE id = ?', [$idAnnonce]);
+
+	    header( 'Location: /account' );
 	}
 
     public function updateAvatar(){

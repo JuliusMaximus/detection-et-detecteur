@@ -1,0 +1,14 @@
+body {
+	margin: 0;
+}
+
+section {
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	min-height: 60vh !important;
+}
+
+label {
+	font-weight: 600;
+}

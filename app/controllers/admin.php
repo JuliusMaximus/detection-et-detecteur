@@ -18,7 +18,7 @@ class Admin extends Controller {
 	    // définition du premier commentaire de la page
 	    $start = ( $currentPage - 1 ) * $perPage;
 	    // Récupération des annoncess suivant la page demandée
-	    $annonces = DB::selectWithLimit( 'SELECT * FROM annonces ORDER BY id DESC LIMIT :start, :perPage', $start, $perPage );
+	    $annonces = DB::selectWithLimit( 'SELECT * FROM annonces ORDER BY validated DESC, id DESC LIMIT :start, :perPage', $start, $perPage );
 
     	// Formatage de la date et du retour à ligne
         foreach ( $annonces as $key => $annonce ) {

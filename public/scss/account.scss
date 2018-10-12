@@ -30,6 +30,19 @@ label {
 	font-weight: 600;
 }
 
+td img {
+	width: 80px;
+	height: auto;
+}
+
+.fas.fa-check-square {
+	color:#FFC107
+}
+
+.far.fa-check-square {
+	color:#919191
+}
+
 @media all and (max-width: 576px) {
 	#buttons {
 		flex-direction: column !important;

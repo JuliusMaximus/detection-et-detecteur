@@ -16,15 +16,15 @@
 		<?php include 'nav.php'; ?>
 	</header>
 	<div id="buttons" class="container d-flex justify-content-center mt-5">
-		  <button id="btnProfil" class="btn account m-1" type="button" data-toggle="collapse" data-target="#profil" aria-expanded="false" aria-controls="mon profil">
+		<button id="btnProfil" class="btn account m-1" type="button" data-toggle="collapse" data-target="#profil" aria-expanded="false" aria-controls="mon profil">
 		    Mon profil
-		  </button>
-		  <button id="btnMessages" class="btn account m-1" type="button" data-toggle="collapse" data-target="#messages" aria-expanded="false" aria-controls="Mes messages">
+		</button>
+		<button id="btnAnnonces" class="btn account m-1" type="button" data-toggle="collapse" data-target="#annonces" aria-expanded="false" aria-controls="Mes annonces">
+		    Mes annonces 
+		</button>
+		<button id="btnMessages" class="btn account m-1" type="button" data-toggle="collapse" data-target="#messages" aria-expanded="false" aria-controls="Mes messages">
 		    Mes messages <span class="badge badge-light">4</span>
-		  </button>
-		  <button id="btnAnnonces" class="btn account m-1" type="button" data-toggle="collapse" data-target="#annonces" aria-expanded="false" aria-controls="Mes annonces">
-		    Mes annonces
-		  </button>
+		</button>
 	</div>
 	<section class="container">
 		<div class="collapse show" id="profil">
@@ -62,17 +62,17 @@
 					</div>
             <?php endif; ?>	
 		  <div class="card card-body">
-		  	<h2>Mon profil</h2>  
+		  	<h2 class="mb-5">Mon profil</h2>  
 		    <form action="/account/updateAvatar" method="post" enctype="multipart/form-data">   
 		      	<div class="row">
-		      		<div class="form-group avatar col-md 2">
-			      		<img src="/img/img_profils/<?= $data['membre']['avatar'] ?>" alt="avatar" class="img-fluid">
-			      	</div>
-			      	<div class="form-group col-md-10">
+			      	<div class="form-group col-md-5">
 			      		<label for="avatar">Modifier mon avatar (fichier jpg, png - max 2 Mo)</label>
 	    				<input type="file" class="form-control-file" id="avatar" name="avatar">
 	    				<button type="submit" class="btn btn-warning mt-4">Valider</button>
 	    			</div>
+	    			<div class="form-group avatar col-md 2">
+			      		<img src="/img/img_profils/<?= $data['membre']['avatar'] ?>" alt="avatar" class="img-fluid">
+			      	</div>
     			</div>
 		    </form>
 		    <form action="/account/updateProfil" method="post">	
@@ -230,12 +230,81 @@
 			</form>
 		  </div>
 		</div>
-		<div class="collapse" id="messages">
-		  <div class="card card-body">
-		    2 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-		  </div>
-		</div>
 		<div class="collapse" id="annonces">
+		    <div class="card card-body">    
+	            <div class="container">
+		            <div class="row table-responsive">
+		              <!-- Liste des annonces -->
+		                <table class="table table-striped">
+		                    <thead>
+			                    <tr>
+			                    	<th>Photo</th>			              
+			                        <th>Date</th>
+			                        <th>Titre</th>
+			                        <th>Validée</th>
+			                        <th>Modifier</th>
+			                        <th>Supprimer</th>
+			                    </tr>
+		                    </thead>
+		                    <tbody>
+			                    <!-- Récupération et Construction de la liste-->
+			                    <?php
+			                    foreach($data['annonces'] as $key => $annonce) :
+			                    ?>
+			                    <tr>
+			                    	<td><img src="/img/img_annonces/<?= $annonce['picture'] ?>"></td>
+			                        <td><?= $annonce['created_at'] ?></td>
+			                        <td><?= $annonce['title'] ?></td>
+			                        <td>
+				                        <?php
+				                        if ( !$annonce['validated']) : // on affiche un icon grisé si il n'est pas validé
+				                        ?>
+				                        <i class="far fa-check-square fa-2x"></i>
+				                        <?php 
+				                        else : // sinon icon vert
+				                        ?>
+				                        <i class="fas fa-check-square fa-2x"></i>
+				                        <?php
+				                        endif;
+				                        ?>
+			                        </td>
+			                        <td>
+			                        	<?php
+			                        	if ( !$annonce['validated']) : // on supprime grisé si elle n'est pas validé
+			                        	?>
+			                        	Modifier
+			                        	<?php 
+				                        else :
+				                        ?>
+			                        	<a href="/editer/<?= $annonce['id'] ?>" class="text-warning">Modifier</a>
+			                        	<?php
+				                        endif;
+				                        ?>
+			                        </td>
+			                        <td>
+			                        	<?php
+			                        	if ( !$annonce['validated']) : // on supprime grisé si elle n'est pas validé
+			                        	?>
+			                        	Supprimer
+			                        	<?php 
+				                        else :
+				                        ?>
+			                        	<a href="/account/deleteAnnonce/<?= $annonce['id'] ?>" onclick="return confirm('Voulez-vous vraiment suprimer cette annonce ?');" class="text-danger">Supprimer</a>
+			                        	<?php
+				                        endif;
+				                        ?>
+			                        </td>
+			                    </tr>
+			                    <?php
+			                    endforeach;
+			                    ?>
+		                    </tbody>
+		                </table> 
+	                </div>     
+			    </div>
+		    </div>
+		</div>
+		<div class="collapse" id="messages">
 		  <div class="card card-body">
 		    3 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
 		  </div>
