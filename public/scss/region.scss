@@ -1,0 +1,22 @@
+@import 'variables';
+
+body {
+	margin: 0;
+}
+
+section {
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 60vh;
+}
+
+.region {
+	background: $color-orange;
+	color: #fff;
+	transition: all .7s ease-out !important;
+	&:hover {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
