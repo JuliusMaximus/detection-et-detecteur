@@ -289,7 +289,7 @@
 			                        	<?php 
 				                        else :
 				                        ?>
-			                        	<a href="/account/deleteAnnonce/<?= $annonce['id'] ?>" onclick="return confirm('Voulez-vous vraiment suprimer cette annonce ?');" class="text-danger">Supprimer</a>
+			                        	<a href="/account/deleteAnnonce/<?= $annonce['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');" class="text-danger">Supprimer</a>
 			                        	<?php
 				                        endif;
 				                        ?>

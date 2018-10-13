@@ -50,15 +50,30 @@ class Admin extends Controller {
 	    header( 'Location: /connexion' );
 	}
 
-	// Validation des annonces
-  public function validate( int $id ) {
-    if ( !isset( $_SESSION['admin'] ) ) {
-      header( 'Location: /connexion' );
-    }
-    else {
-      DB::update( 'UPDATE annonces SET validated = 1 WHERE post_id = ?', [$id] );
+	// Suppression d'une annonce
+	public function deleteAnnonce( int $idAnnonce ) {
+	    if ( !isset( $_SESSION['admin'] ) ) {
+	        header( 'Location: /connexion' );
+	    }
 
-      header( 'Location: /admin ');
+	    $annonce = DB::select( 'SELECT picture from annonces where id = ?', [$idAnnonce] );
+
+	    unlink( ROOT . 'public/img/img_annonces' . $annonce[0]['picture'] ); // suppression image
+
+	    DB::delete( 'DELETE FROM annonces WHERE id = ?', [$idAnnonce]);
+
+	    header( 'Location: /admin' );
+	}
+
+	// Validation des annonces
+    public function validate( int $id ) {
+	    if ( !isset( $_SESSION['admin'] ) ) {
+	      header( 'Location: /connexion' );
+	    }
+	    else {
+	      DB::update( 'UPDATE annonces SET validated = 1 WHERE post_id = ?', [$id] );
+
+	      header( 'Location: /admin ');
+	    }
     }
-  }
 }
