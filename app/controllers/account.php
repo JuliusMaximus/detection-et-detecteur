@@ -23,10 +23,10 @@ class Account extends Controller {
 		return $membre[0];
 	}
 
-	 // Suppression d'un article
+	 // Suppression d'une annonce
 	public function deleteAnnonce( int $idAnnonce ) {
 	    if ( !isset( $_SESSION['id'] ) ) {
-	        header( 'Location: /admin/connexion' );
+	        header( 'Location: /connexion' );
 	    }
 
 	    $annonce = DB::select( 'SELECT picture from annonces where id = ?', [$idAnnonce] );

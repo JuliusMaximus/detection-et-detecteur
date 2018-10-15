@@ -9,15 +9,15 @@
 	<link rel="stylesheet" href="/css/footer.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-	<title>Les prospécteurs de la région</title>
+	<title>Les prospecteurs de la région</title>
 </head>
 <body>
 	<header>
 		<?php include 'nav.php'; ?>
 	</header>
-	<div id="buttons" class="container d-flex justify-content-center mt-5">
+	<div id="buttons" class="container d-flex justify-content-center mt-5 mb-1">
 		<button id="btnProspecteur" class="btn region m-1" type="button" data-toggle="collapse" data-target="#prospecteur" aria-expanded="false" aria-controls="les prospécteurs de la région">
-		    Les prospécteurs
+		    Les prospecteurs
 		</button>
 		<button id="btnAnnonces" class="btn region m-1" type="button" data-toggle="collapse" data-target="#annonces" aria-expanded="false" aria-controls="Les annonces">
 		    Les annonces 
@@ -28,17 +28,75 @@
 	</div>
 	<section class="container">
 		<div class="collapse show" id="prospecteur">
-			<div class="card card-body">
-			  	<h2 class="mb-5">Les Prospécteurs de votre région</h2>  
-			    
-			    
+			<div class="row">
+				<div class="card card-body col-md-8">
+				  	<h2 class="mb-5">Les Prospecteurs de votre région</h2>  
+				  	<div id="membres" data-spy="scroll">
+					    <!-- Récupération et Construction de la liste-->
+					    <?php
+		                if ( empty($data['membres']) ) :
+		            	?>
+		            	<div class="card card-body">
+		            		<h5 class="card-title">Aucun membres inscrit dans votre région</h5>
+		            	</div>
+		            	<?php
+						endif;
+						?>
+		            	<?php
+		                foreach( $data['membres'] as $key => $membre ) :
+		                ?>
+						<div class="card mb-1 mr-2">
+							<div class="card-body">
+							    <h5 class="card-title"><b><?= $membre['pseudo'] ?></b> <small>&nbsp;&nbsp;&nbsp; Dpt. <?= $membre['dpt'] ?></small></h5>
+							    <h6 class="card-subtitle mb-2 text-muted">Membre depuis le <?= $membre['created_at'] ?></h6>
+							    <p class="card-text"><?= $membre['description'] ?></p>
+							    <a href="#" class="btn btn-warning card-link">Tchater</a>
+						    </div>
+						</div>
+		                <?php
+		                endforeach;
+		                ?>
+				    </div>
+				</div>
+				<div class="card card-body col-md-4">
+				</div>
 			</div>  
 		</div>
 		<div class="collapse" id="annonces">
 		    <div class="card card-body">    
 	            <div class="container">
-	            	<h2 class="mb-5">Les annonces dans région</h2>
-		                
+	            	<h2 class="mb-5">Les annonces dans votre région</h2>
+		             <!-- Récupération et Construction de la liste-->
+		            <div class="row">
+		            	<?php
+		                if ( empty($data['annonces']) ) :
+		            	?>
+		            	<div class="card card-body">
+		            		<h5 class="card-title">Aucune annonces dans votre région</h5>
+		            	</div>
+		            	<?php
+						endif;
+						?>
+		            	<?php
+		                foreach( $data['annonces'] as $key => $annonce ) :
+		                ?>
+						<div class="card col-sm-12 col-md-6 col-lg-4 m-2">
+						    <img class="card-img-top" src="/img/img_annonces/<?= $annonce['picture'] ?>" alt="Card image cap">
+						    <div class="card-body">
+							    <h5 class="card-title"><b><?= $annonce['title'] ?></b></h5>
+							    <p class="card-text"><?= $annonce['descAnnonce'] ?></p>
+						    </div>
+						    	<ul class="list-group list-group-flush">
+						    		<li class="list-group-item"><b>Prix:</b> <?= $annonce['price'] ?></li>
+						    	</ul>
+						    <div class="card-body pr-0">
+						    	<a role="button" href="#" class="card-link btn btn-warning float-right">Contacter le vendeur</a>
+						    </div>
+						</div>
+		                <?php
+		                endforeach;
+		                ?> 
+		            </div>  
 			    </div>
 		    </div>
 		</div>

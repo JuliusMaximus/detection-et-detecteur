@@ -20,3 +20,42 @@ section {
 		padding-right: 2rem;
 	}
 }
+
+#membres {
+	position: relative;
+	overflow-y: scroll;
+	height: 36rem;
+}
+
+// Gestion des colonnes pour les listes d'annonces
+
+@media all and (max-width: 991px) {
+	.col-md-6 {
+		max-width: 47.5% !important;
+	}
+}
+
+@media all and (min-width: 992px) {
+	.col-lg-4 {
+		max-width: 31.5% !important;
+	}
+}
+
+@media all and (max-width: 767px) {
+	.col-sm-12 {
+		max-width: 97% !important;
+	}
+}
+// Gestion des boutons du menu 
+@media all and (max-width: 576px) {
+	#buttons {
+		flex-direction: column !important;
+	}
+
+	.region:hover {
+		margin-left: 1rem !important;
+		margin-right: 1rem !important;
+	}
+}
+
+
