@@ -11,14 +11,22 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light" id="topOfPage">
+		<nav class="navbar navbar-expand-lg navbar-light">
     		<div class="container">
+            <!-- menu burger -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- navbar -->
       			<a class="navbar-brand" href="/admin">Espace d'administration</a>
-      			<ul class="nav navbar-nav pull-xs-right">
-		            <li class="nav-item"><a class="nav-link" href="/"  target="_blank">Aller sur le site</a></li>
-		            <li class="nav-item">
-		            <li class="nav-item"><a class="nav-link" href="/admin/deconnexion">Déconnexion</a></li>
-		        </ul>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+        			<ul class="nav navbar-nav pull-xs-right">
+                  <li class="nav-item"><a class="nav-link" href="/membres">Membres <span class="badge badge-pill badge-secondary">2</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href="/associations">Assosiations</a></li>
+  		            <li class="nav-item"><a class="nav-link" href="/"  target="_blank">Aller sur le site</a></li>
+  		            <li class="nav-item"><a class="nav-link" href="/admin/deconnexion">Déconnexion</a></li>
+  		        </ul>
+            </div>
     		</div>
 		</nav>
 	</header>

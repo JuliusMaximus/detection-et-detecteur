@@ -27,6 +27,13 @@ section {
 	height: 36rem;
 }
 
+p.card-text a {
+	color: $color-orange;
+	transition: all .3s ease-in;
+	&:hover {
+		font-weight: bold;
+	}
+}
 // Gestion des colonnes pour les listes d'annonces
 
 @media all and (max-width: 991px) {

@@ -20,6 +20,12 @@ section {
   overflow-y: scroll;
   height: 36rem; }
 
+p.card-text a {
+  color: #ff8c00;
+  transition: all .3s ease-in; }
+  p.card-text a:hover {
+    font-weight: bold; }
+
 @media all and (max-width: 991px) {
   .col-md-6 {
     max-width: 47.5% !important; } }

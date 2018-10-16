@@ -17,13 +17,13 @@
 	</header>
 	<div id="buttons" class="container d-flex justify-content-center mt-5 mb-1">
 		<button id="btnProspecteur" class="btn region m-1" type="button" data-toggle="collapse" data-target="#prospecteur" aria-expanded="false" aria-controls="les prospécteurs de la région">
-		    Les prospecteurs
+		    Les prospecteurs <span class="badge badge-light"><?= count($data['membres']) ?></span>
 		</button>
 		<button id="btnAnnonces" class="btn region m-1" type="button" data-toggle="collapse" data-target="#annonces" aria-expanded="false" aria-controls="Les annonces">
-		    Les annonces 
+		    Les annonces <span class="badge badge-light"><?= count($data['annonces']) ?></span>
 		</button>
 		<button id="btnAssos" class="btn region m-1" type="button" data-toggle="collapse" data-target="#Assos" aria-expanded="false" aria-controls="Les associations">
-		    Les associations <span class="badge badge-light">4</span>
+		    Les associations <span class="badge badge-light"><?= count($data['assos']) ?></span>
 		</button>
 	</div>
 	<section class="container">
@@ -103,7 +103,31 @@
 		<div class="collapse" id="assos">
 		    <div class="card card-body">
 			  	<h2 class="mb-5">Les associations de votre région</h2>
-			    3 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+			    <!-- Récupération et Construction de la liste-->
+			    <?php
+                if ( empty($data['assos']) ) :
+            	?>
+            	<div class="card card-body">
+            		<h5 class="card-title">Aucune associations connues dans votre région</h5>
+            	</div>
+            	<?php
+				endif;
+				?>
+            	<?php
+                foreach( $data['assos'] as $key => $asso ) :
+                ?>
+				<div class="card mb-1 mr-2">
+					<div class="card-body">
+					    <h5 class="card-title"><b><?= $asso['title'] ?></b></h5>
+					    <p class="card-text"><b>Adresse : </b><?= $asso['adress'] ?></p>
+				    	<p class="card-text"><b>Téléphone : </b><?= $asso['phone'] ?></p>
+			    		<p class="card-text"><b>Site internet : </b><a href="<?= $asso['net'] ?>" target="_blank"><?= $asso['net'] ?></a></p>
+		    			<p class="card-text"><b>Email : </b><?= $asso['email'] ?></p>
+				    </div>
+				</div>
+                <?php
+                endforeach;
+                ?>
 		    </div>
 		</div>
 	</section>
