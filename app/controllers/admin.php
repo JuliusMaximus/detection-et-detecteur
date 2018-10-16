@@ -26,7 +26,10 @@ class Admin extends Controller {
         	$annonces[$key]['created_at'] = date_format( $date, 'd/m/Y' );
       		$annonces[$key]['descAnnonce'] = nl2br( $annonce['descAnnonce'] );
     	}
-      	$this->view( 'admin/index', ['annonces' => $annonces, 'currentPage' => $currentPage, 'pagesTotal' => $pagesTotal] );
+
+    	$membres = DB::select( 'SELECT id from member', [] );
+
+      	$this->view( 'admin/index', ['annonces' => $annonces, 'membres' => $membres, 'currentPage' => $currentPage, 'pagesTotal' => $pagesTotal] );
     }
 
     // Déconnexion de l'espace d'administration

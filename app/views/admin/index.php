@@ -21,7 +21,7 @@
       			<a class="navbar-brand" href="/admin">Espace d'administration</a>
             <div class="collapse navbar-collapse" id="navbarToggler">
         			<ul class="nav navbar-nav pull-xs-right">
-                  <li class="nav-item"><a class="nav-link" href="/membres">Membres <span class="badge badge-pill badge-secondary">2</span></a></li>
+                  <li class="nav-item"><a class="nav-link" href="/membres">Membres <span class="badge badge-pill badge-secondary"><?= count($data['membres']) ?></span></a></li>
                   <li class="nav-item"><a class="nav-link" href="/associations">Assosiations</a></li>
   		            <li class="nav-item"><a class="nav-link" href="/"  target="_blank">Aller sur le site</a></li>
   		            <li class="nav-item"><a class="nav-link" href="/admin/deconnexion">Déconnexion</a></li>
