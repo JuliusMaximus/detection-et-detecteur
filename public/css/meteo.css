@@ -1,0 +1,24 @@
+body {
+  margin: 0; }
+
+section {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh; }
+
+#widget li a {
+  color: #ff8c00; }
+  #widget li a.active {
+    color: #000 !important; }
+  #widget li a:hover {
+    color: #FFC107; }
+
+.hour {
+  background-color: #e5e5e5;
+  padding-left: .3rem;
+  padding-right: .3rem;
+  border-radius: 3px;
+  border: 1px solid #777777; }
+
+/*# sourceMappingURL=meteo.css.map */

@@ -22,44 +22,62 @@
 		<button id="btnAnnonces" class="btn region m-1" type="button" data-toggle="collapse" data-target="#annonces" aria-expanded="false" aria-controls="Les annonces">
 		    Les annonces <span class="badge badge-light"><?= count($data['annonces']) ?></span>
 		</button>
-		<button id="btnAssos" class="btn region m-1" type="button" data-toggle="collapse" data-target="#Assos" aria-expanded="false" aria-controls="Les associations">
+		<button id="btnAssos" class="btn region m-1" type="button" data-toggle="collapse" data-target="#assos" aria-expanded="false" aria-controls="Les associations">
 		    Les associations <span class="badge badge-light"><?= count($data['assos']) ?></span>
+		</button>
+		<button id="btnMeteo" class="btn region m-1" type="button" data-toggle="collapse" data-target="#meteo" aria-expanded="false" aria-controls="Votre météo">
+		    La météo <i class="fas fa-sun"></i>
 		</button>
 	</div>
 	<section class="container">
 		<div class="collapse show" id="prospecteur">
-			<div class="row">
-				<div class="card card-body col-md-8">
-				  	<h2 class="mb-5">Les Prospecteurs de votre région</h2>  
-				  	<div id="membres" data-spy="scroll">
-					    <!-- Récupération et Construction de la liste-->
-					    <?php
-		                if ( empty($data['membres']) ) :
-		            	?>
-		            	<div class="card card-body">
-		            		<h5 class="card-title">Aucun membres inscrit dans votre région</h5>
-		            	</div>
-		            	<?php
-						endif;
-						?>
-		            	<?php
-		                foreach( $data['membres'] as $key => $membre ) :
-		                ?>
-						<div class="card mb-1 mr-2">
-							<div class="card-body">
-							    <h5 class="card-title"><b><?= $membre['pseudo'] ?></b> <small>&nbsp;&nbsp;&nbsp; Dpt. <?= $membre['dpt'] ?></small></h5>
-							    <h6 class="card-subtitle mb-2 text-muted">Membre depuis le <?= $membre['created_at'] ?></h6>
-							    <p class="card-text"><?= $membre['description'] ?></p>
-							    <a href="#" class="btn btn-warning card-link">Tchater</a>
+			<div class="card card-body">
+			  	<h2 class="mb-5">Les Prospecteurs de votre région</h2>  
+			  	<div id="membres" data-spy="scroll">
+				    <!-- Récupération et Construction de la liste-->
+				    <?php
+	                if ( empty($data['membres']) ) :
+	            	?>
+	            	<div class="card card-body">
+	            		<h5 class="card-title">Aucun membres inscrit dans votre région</h5>
+	            	</div>
+	            	<?php
+					endif;
+					?>
+	            	<?php
+	                foreach( $data['membres'] as $key => $membre ) :
+	                ?>
+					<div class="card mb-1 mr-2">
+						<div class="card-body">
+						    <h5 class="card-title"><b><?= $membre['pseudo'] ?></b> <small>&nbsp;&nbsp;&nbsp; Dpt. <?= $membre['dpt'] ?></small></h5>
+						    <h6 class="card-subtitle mb-2 text-muted">Membre depuis le <?= $membre['created_at'] ?></h6>
+						    <p class="card-text"><?= $membre['description'] ?></p>
+						    <div class="btn-group dropdown">
+						        <?php if (isset($_SESSION['id'])) : ?>
+						        <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						          Lui envoyer un message
+						        </button>
+						        <div class="dropdown-menu">
+						          <form action="/region/message" method="post" class="px-4 py-3" role="form">
+						          	<input type="HIDDEN" name="sendTo" value="<?= $membre['pseudo'] ?>">
+						          	<input type="HIDDEN" name="sendBy" value="<?= $_SESSION['id'] ?>">
+						          	<input type="HIDDEN" name="url" value="<?= $_SERVER['REQUEST_URI'] ?>">  
+						            <div class="form-group">
+						              <textarea class="form-control" name="message" placeholder="message..." required="Message vide !" rows="3" maxlength="500"></textarea>
+						            </div>
+						            <button type="submit" class="btn btn-warning">Envoyer</button>
+						          </form>
+						        </div>
+						        <?php else: ?>
+								<p class="text-muted font-weight-bold">Vous devez être connecté pour lui envoyer un message<p>
+						    	<?php endif; ?>
 						    </div>
-						</div>
-		                <?php
-		                endforeach;
-		                ?>
-				    </div>
-				</div>
-				<div class="card card-body col-md-4">
-				</div>
+					    </div>
+					</div>
+	                <?php
+	                endforeach;
+	                ?>
+			    </div>
 			</div>  
 		</div>
 		<div class="collapse" id="annonces">
@@ -128,6 +146,26 @@
                 <?php
                 endforeach;
                 ?>
+		    </div>
+		</div>
+		<div class="collapse" id="meteo">
+		    <div class="card card-body d-flex align-items-center">
+			  	<h2 class="mb-1">La météo de votre région</h2>
+			  	<p>Consultez les prévisions météo de chez vous avant de sortir détecter !</p>
+			  	<form class="form-inline mt-5" action="/meteo/index" method="post"> 
+	      				<label class="mr-2" for="ville"><b>Villes</b></label>
+						<select id="ville" name="ville" class="form-control mr-2">
+							<?php
+			                foreach( $data['villes'] as $key => $ville ) :
+			                ?>
+			                <option value="<?= $ville ?>"><?= $ville ?></option>
+			                <?php
+			                endforeach;
+			                ?>
+              			</select>
+						<button type="submit" class="btn btn-warning">Valider</button>
+	    			
+		    	</form>
 		    </div>
 		</div>
 	</section>

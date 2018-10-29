@@ -8,13 +8,21 @@ class Account extends Controller {
 
 	    $annonces = DB::select('SELECT * FROM annonces WHERE post_id = ?', [$_SESSION['id']]);
 
-	    // Formatage de la date^pour chaque annonces
+	    $messages = DB::select('SELECT * FROM messages WHERE send_to = ? ORDER BY id DESC', [$membre['pseudo']]);
+
+	    // Formatage de la date pour chaque annonces
         foreach ( $annonces as $key => $annonce ) {
         	$date = date_create( $annonce['created_at'] );
         	$annonces[$key]['created_at'] = date_format( $date, 'd/m/Y' );
     	}
 
-	    $this->view( 'home/account', ['membre' => $membre, 'annonces' => $annonces]);
+    	// Formatage de la date pour chaque messages
+        foreach ( $messages as $key => $message ) {
+        	$date = date_create( $message['send_at'] );
+        	$messages[$key]['send_at'] = date_format( $date, 'd/m/Y' );
+    	}
+
+	    $this->view( 'home/account', ['membre' => $membre, 'annonces' => $annonces, 'messages' => $messages]);
     }
 
     private function account_informations() : array {
@@ -37,6 +45,51 @@ class Account extends Controller {
 
 	    header( 'Location: /account' );
 	}
+
+	public function deleteMessage( int $idMessage ) {
+		if ( !isset( $_SESSION['id'] ) ) {
+	        header( 'Location: /connexion' );
+	    }
+
+	    DB::delete( 'DELETE FROM messages WHERE id = ?', [$idMessage]);
+
+	    header( 'Location: /account' );
+	}
+
+	public function message() {
+        if(!empty($_POST)) {
+            extract($_POST);
+
+            DB::insert('INSERT INTO messages (message, send_to, send_by) VALUES (:message, :sendTo, :sendBy)', [
+                'message' => htmlspecialchars($message),
+                'sendTo'  => htmlspecialchars($sendTo),
+                'sendBy'  => htmlspecialchars($sendBy)
+            ]);
+
+            $sent = "Votre message a bien été envoyé !";
+
+            $membre = $this->account_informations();
+
+		    $annonces = DB::select('SELECT * FROM annonces WHERE post_id = ?', [$_SESSION['id']]);
+
+		    $messages = DB::select('SELECT * FROM messages WHERE send_to = ? ORDER BY id DESC', [$membre['pseudo']]);
+
+		    // Formatage de la date pour chaque annonces
+	        foreach ( $annonces as $key => $annonce ) {
+	        	$date = date_create( $annonce['created_at'] );
+	        	$annonces[$key]['created_at'] = date_format( $date, 'd/m/Y' );
+	    	}
+
+	    	// Formatage de la date pour chaque messages
+	        foreach ( $messages as $key => $message ) {
+	        	$date = date_create( $message['send_at'] );
+	        	$messages[$key]['send_at'] = date_format( $date, 'd/m/Y' );
+	    	}
+
+		    $this->view( 'home/account', ['membre' => $membre, 'annonces' => $annonces, 'messages' => $messages, 'sent' => $sent]);
+        }
+
+    }
 
     public function updateAvatar(){
     	if (!isset($_SESSION['id'])) {

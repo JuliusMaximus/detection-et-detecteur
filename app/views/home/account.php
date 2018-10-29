@@ -15,6 +15,14 @@
 	<header>
 		<?php include 'nav.php'; ?>
 	</header>
+	<?php if ( isset( $data['sent'] ) ) : ?>
+		<div class="container alert alert-success mt-5">
+        	<?= $data['sent'] ?>
+            	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+		</div>
+        <?php endif; ?>
 	<div id="buttons" class="container d-flex justify-content-center mt-5">
 		<button id="btnProfil" class="btn account m-1" type="button" data-toggle="collapse" data-target="#profil" aria-expanded="false" aria-controls="mon profil">
 		    Mon profil
@@ -23,7 +31,7 @@
 		    Mes annonces 
 		</button>
 		<button id="btnMessages" class="btn account m-1" type="button" data-toggle="collapse" data-target="#messages" aria-expanded="false" aria-controls="Mes messages">
-		    Mes messages <span class="badge badge-light">4</span>
+		    Mes messages <span class="badge badge-light"><?= count($data['messages']) ?></span>
 		</button>
 	</div>
 	<section class="container">
@@ -87,19 +95,19 @@
 	              <label for="region">Région</label>
 	              <select id="region" name="region" class="form-control">
 	                <option value="<?= $data['membre']['region'] ?>"><?= $data['membre']['region'] ?></option>
-	                <option value="Grand Est">Grand Est</option>
+	                <option value="Grand-Est">Grand-Est</option>
 	                <option value="Nouvelle-Aquitaine">Nouvelle-Aquitaine</option>
-	                <option value="Auvergne-Rhône-Alpes">Auvergne-Rhône-Alpes</option>
-	                <option value="Bourgogne-Franche-Comté">Bourgogne-Franche-Comté</option>
+	                <option value="Auvergne-Rhone-Alpes">Auvergne-Rhône-Alpes</option>
+	                <option value="Bourgogne-Franche-Comte">Bourgogne-Franche-Comté</option>
 	                <option value="Bretagne">Bretagne</option>
-	                <option value="Centre-Val de Loire">Centre-Val de Loire</option>
+	                <option value="Centre-Val-de-Loire">Centre-Val-de-Loire</option>
 	                <option value="Corse">Corse</option>
 	                <option value="Ile-de-France">Ile-de-France</option>
 	                <option value="Occitanie">Occitanie</option>
 	                <option value="Hauts-de-France">Hauts-de-France</option>
 	                <option value="Normandie">Normandie</option>
-	                <option value="Pays de la Loire">Pays de la Loire</option>
-	                <option value="Provence-Alpes-Côte d'Azur">Provence-Alpes-Côte d'Azur</option>
+	                <option value="Pays-de-la-Loire">Pays-de-la-Loire</option>
+	                <option value="Provence-Alpes-Cote-d'Azur">Provence-Alpes-Côte-d'Azur</option>
 	              </select>
 	            </div>
 	            
@@ -272,11 +280,11 @@
 			                        	<?php
 			                        	if ( !$annonce['validated']) : // on supprime grisé si elle n'est pas validé
 			                        	?>
-			                        	Modifier
+			                        	<i class="fas fa-arrow-circle-right fa-2x"></i>
 			                        	<?php 
 				                        else :
 				                        ?>
-			                        	<a href="/editer/<?= $annonce['id'] ?>" class="text-warning">Modifier</a>
+			                        	<a href="/editer/<?= $annonce['id'] ?>" class="text-success"><i class="fas fa-arrow-circle-right fa-2x"></i></a>
 			                        	<?php
 				                        endif;
 				                        ?>
@@ -285,11 +293,11 @@
 			                        	<?php
 			                        	if ( !$annonce['validated']) : // on supprime grisé si elle n'est pas validé
 			                        	?>
-			                        	Supprimer
+			                        	<i class="fas fa-times-circle fa-2x"></i>
 			                        	<?php 
 				                        else :
 				                        ?>
-			                        	<a href="/account/deleteAnnonce/<?= $annonce['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');" class="text-danger">Supprimer</a>
+			                        	<a href="/account/deleteAnnonce/<?= $annonce['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');" class="text-danger"><i class="fas fa-times-circle fa-2x"></i></a>
 			                        	<?php
 				                        endif;
 				                        ?>
@@ -306,7 +314,69 @@
 		</div>
 		<div class="collapse" id="messages">
 		  <div class="card card-body">
-		    3 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+		    <div class="container">
+		            <div class="row table-responsive">
+		              <!-- Liste des annonces -->
+		                <table class="table table-striped">
+		                    <thead>
+			                    <tr>			              
+			                        <th>De</th>
+			                        <th>Message</th>
+			                        <th>Date</th>
+			                        <th>Répondre</th>
+			                        <th>Supprimer</th>
+			                    </tr>
+		                    </thead>
+		                    <tbody>
+			                    <!-- Récupération et Construction de la liste-->
+			                    <?php
+			                    foreach($data['messages'] as $key => $message) :
+			                    ?>
+			                    <tr>			                    	
+			                        <td><?= $message['send_by'] ?></td>
+			                        <td><?= $message['message'] ?></td>
+			                        <td><?= $message['send_at'] ?></td>
+			                        <td>
+			                        	<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#formMessage">
+  											<i class="fas fa-arrows-alt-h"></i>
+										</button>
+										<!-- Modal -->
+										<div class="modal fade" id="formMessage" tabindex="-1" role="dialog" aria-labelledby="répondre au message" aria-hidden="true">
+										    <div class="modal-dialog" role="document">
+											    <div class="modal-content">
+											      	<div class="modal-header">
+												        <h5 class="modal-title" id="exampleModalLabel">Répondre à <?= $message['send_by'] ?></h5>
+												        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												          <span aria-hidden="true">&times;</span>
+												        </button>
+											      	</div>
+											      	<div class="modal-body">
+											        	<form action="/account/message" method="post" class="px-4 py-3" role="form">
+												          	<input type="HIDDEN" name="sendTo" value="<?= $message['send_by'] ?>">
+												          	<input type="HIDDEN" name="sendBy" value="<?= $message['send_to'] ?>">
+												          	<input type="HIDDEN" name="url" value="<?= $_SERVER['REQUEST_URI'] ?>">  
+												            <div class="form-group">
+												                <textarea class="form-control" name="message" placeholder="message..." required="Message vide !" rows="3" maxlength="500"></textarea>
+												            </div>
+												            <button type="submit" class="btn btn-warning">Envoyer</button>
+												        </form>
+											      	</div>
+											    </div>
+										    </div>
+										</div>
+			                        </td>
+			                        <td>
+			                        	<a href="/account/deleteMessage/<?= $message['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce message ?');" class="text-danger"><i class="fas fa-times-circle fa-2x"></i></a>
+			                        </td>
+			                    </tr>
+			                    <?php
+			                    endforeach;
+			                    ?>
+		                    </tbody>
+		                </table> 
+	                </div>     
+			    </div>
 		  </div>
 		</div>
 	</section>
