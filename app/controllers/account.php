@@ -1,5 +1,6 @@
 <?php
 class Account extends Controller {
+  	// Récupération des données et envoi à la vue
   	public function index() {
 	  	if (!isset($_SESSION['id'])) {
 	      header('Location: /');
@@ -24,14 +25,17 @@ class Account extends Controller {
 
 	    $this->view( 'home/account', ['membre' => $membre, 'annonces' => $annonces, 'messages' => $messages]);
     }
-
+    /* 
+     * Récupère les infos du membre connecté.
+     * $_SESSION['id'] est défini lors de la connexion
+     * au compte qui prend comme valeur l'id du membre en BDD
+    */
     private function account_informations() : array {
 		$membre = DB::select('SELECT * FROM member WHERE id = ?', [$_SESSION['id']]);
 
 		return $membre[0];
 	}
-
-	 // Suppression d'une annonce
+	// Suppression d'une annonce
 	public function deleteAnnonce( int $idAnnonce ) {
 	    if ( !isset( $_SESSION['id'] ) ) {
 	        header( 'Location: /connexion' );
@@ -45,7 +49,7 @@ class Account extends Controller {
 
 	    header( 'Location: /account' );
 	}
-
+	// Suppression d'un message
 	public function deleteMessage( int $idMessage ) {
 		if ( !isset( $_SESSION['id'] ) ) {
 	        header( 'Location: /connexion' );
@@ -55,17 +59,17 @@ class Account extends Controller {
 
 	    header( 'Location: /account' );
 	}
-
+	// Gestion de l'envoi de message depuis l'espace membre
 	public function message() {
         if(!empty($_POST)) {
             extract($_POST);
-
+            // insertion du message en BDD
             DB::insert('INSERT INTO messages (message, send_to, send_by) VALUES (:message, :sendTo, :sendBy)', [
                 'message' => htmlspecialchars($message),
                 'sendTo'  => htmlspecialchars($sendTo),
                 'sendBy'  => htmlspecialchars($sendBy)
             ]);
-
+            // On renvoi sur la vue
             $sent = "Votre message a bien été envoyé !";
 
             $membre = $this->account_informations();
@@ -90,49 +94,53 @@ class Account extends Controller {
         }
 
     }
-
+    // Modification de l'avatar
     public function updateAvatar(){
     	if (!isset($_SESSION['id'])) {
-		  header('Location: /');
+		    header('Location: /');
 		}
 
 		$membre = $this->account_informations();
 
+		$annonces = DB::select('SELECT * FROM annonces WHERE post_id = ?', [$_SESSION['id']]);
+
+		$messages = DB::select('SELECT * FROM messages WHERE send_to = ? ORDER BY id DESC', [$membre['pseudo']]);
+
 		if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
 			$erreur = [];
 			$success = [];
-
+			// On vérifie le format et la taille de l'image
 		    if (!in_array($_FILES['avatar']['type'], ['image/png', 'image/jpeg'])) {
-		      $erreur['avatar'] = 'Format incorrect (PNG et JPEG acceptés)';
+		        $erreur['avatar'] = 'Format incorrect (PNG et JPEG acceptés)';
 		    }
 		    elseif ($_FILES['avatar']['size'] > 2048000) {
-		      $erreur['avatar'] = 'Image trop volumineuse (Max 2Mo)';
+		        $erreur['avatar'] = 'Image trop volumineuse (Max 2Mo)';
 		    }
 
 		  	if (!$erreur) {
+		  		// On récupère l'extention et on renome l'image
 			    $extension = str_replace('image/', '', $_FILES['avatar']['type']);
 			    $name = bin2hex(random_bytes(8)) . '.' .$extension;
 
 			    if (move_uploaded_file($_FILES['avatar']['tmp_name'], ROOT.'/public/img/img_profils/' . $name)) {
-			      // mise à jour de la BDD et suppression ancienne image
-			      DB::update('UPDATE member SET avatar = :avatar WHERE id = :id', [
-			        'avatar' => $name,
-			        'id'     => $_SESSION['id']
-			      ]);
-                  
-			      if ($membre['avatar'] != 'default.png') {
-			        unlink(ROOT.'/public/img/img_profils/' . $membre['avatar']);
-			      }
+			        // mise à jour de la BDD et suppression ancienne image
+			        DB::update('UPDATE member SET avatar = :avatar WHERE id = :id', [
+				        'avatar' => $name,
+				        'id'     => $_SESSION['id']
+			        ]);
+                  	// On supprime l'ancienne image
+			        if ($membre['avatar'] != 'default.png') {
+			          unlink(ROOT.'/public/img/img_profils/' . $membre['avatar']);
+			        }
 
-			      $success['validation'] = 'Votre avatar a été mis à jours !';
+			        $success['validation'] = 'Votre avatar a été mis à jours !';
 			    }
 			    else {
-			      $erreur['avatar'] = 'Erreur lors de l\'envoi du fichier';
+			        $erreur['avatar'] = 'Erreur lors de l\'envoi du fichier';
 			    }
 			}
-			$membre = $this->account_informations();
 	      
-	      	$this->view('home/account', ['erreur' => $erreur, 'success' => $success, 'membre' => $membre]);
+	      	$this->view('home/account', ['erreur' => $erreur, 'success' => $success, 'membre' => $membre, 'annonces' => $annonces, 'messages' => $messages]);
 		}
 		else {
 			$erreur['avatar'] = 'Aucun fichier séléctionné !';
@@ -140,64 +148,75 @@ class Account extends Controller {
 			$this->view('home/account', ['erreur' => $erreur, 'membre' => $membre]);
 		}
     }
-
+    // Modification des infos du profil
     public function updateProfil() {
     	if (!isset($_SESSION['id'])) {
-     	 header('Location: /');
+     		header('Location: /');
     	}
 
+    	$membre = $this->account_informations();
+
+    	$annonces = DB::select('SELECT * FROM annonces WHERE post_id = ?', [$_SESSION['id']]);
+
+		$messages = DB::select('SELECT * FROM messages WHERE send_to = ? ORDER BY id DESC', [$membre['pseudo']]);
+
 	    if (!empty($_POST)) {
-	      extract($_POST);
-	      $erreur = [];
-	      $success = [];
+	        extract($_POST);
+	        $erreur = [];
+	        $success = [];
+	        // Gestion des erreurs du formulaire
+	        if (empty($email)) {
+	        	$erreur['email'] = 'Adresse e-mail manquante !';
+	        }
+	        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL )) {
+	        	$erreur['email'] = 'Adresse e-mail invalide !';
+	        }
 
-	      if (empty($email)) {
-	        $erreur['email'] = 'Adresse e-mail manquante !';
-	      }
-	      elseif (!filter_var($email, FILTER_VALIDATE_EMAIL )) {
-	        $erreur['email'] = 'Adresse e-mail invalide !';
-	      }
+	        if (empty($dpt)) {
+	        	$erreur['dpt'] = 'Veuillez séléctionner un département !';
+	        }
 
-	      if (empty($dpt)) {
-	        $erreur['dpt'] = 'Veuillez séléctionner un département !';
-	      }
+	        if (empty($region)) {
+	        	$erreur['region'] = 'Veuillez séléctionner une région !';
+	        }
 
-	      if (empty($region)) {
-	        $erreur['region'] = 'Veuillez séléctionner une région !';
-	      }
+	        if (empty($description)) {
+	        	$erreur['description'] = 'Veuillez complèter votre présentation !';
+	        }
 
-	      if (empty($description)) {
-	        $erreur['description'] = 'Veuillez complèter votre présentation !';
-	      }
-
-	      if (!$erreur) {
-	        // insertion du membre en bdd
-	        DB::update('UPDATE member SET email = :email, region = :region, dpt = :dpt, description = :description WHERE id = :id', [
-					'email'       => $email,
-					'dpt'         => htmlspecialchars($dpt),
-					'region'      => htmlspecialchars($region),
-					'description' => htmlspecialchars($description),
-					'id'          => $_SESSION['id']
-      		]);
-	        
-	        $success['validation'] = 'Votre profil a été mis à jours !';
-	      }
-	      $membre = $this->account_informations();
+	        if (!$erreur) {
+		        // modification du membre en bdd
+		        DB::update('UPDATE member SET email = :email, region = :region, dpt = :dpt, description = :description WHERE id = :id', [
+						'email'       => $email,
+						'dpt'         => htmlspecialchars($dpt),
+						'region'      => htmlspecialchars($region),
+						'description' => htmlspecialchars($description),
+						'id'          => $_SESSION['id']
+	      		]);
+		        
+		        $success['validation'] = 'Votre profil a été mis à jours !';
+	      	}
 	      
-	      $this->view('home/account', ['erreur' => $erreur, 'success' => $success, 'membre' => $membre]);
+	      	$this->view('home/account', ['erreur' => $erreur, 'success' => $success, 'membre' => $membre, 'annonces' => $annonces, 'messages' => $messages]);
 	    }
     }
-
+    // Modification du mdp
     public function updatePassword() {
     	if ( !isset( $_SESSION['id'] ) ) {
             header( 'Location: /' );
 	    }
 
+	    $membre = $this->account_informations();
+
+	    $annonces = DB::select('SELECT * FROM annonces WHERE post_id = ?', [$_SESSION['id']]);
+
+		$messages = DB::select('SELECT * FROM messages WHERE send_to = ? ORDER BY id DESC', [$membre['pseudo']]);
+
 	    if (!empty($_POST)) {
 		    extract($_POST);
 		    $erreur = [];
 		    $success = [];
-		    // gestion des erreurs
+		    // gestion des erreurs du formulaire
 		    if (empty($oldpassword)) {
 		        $erreur['oldpassword'] = 'Ancien mot de passe manquant !';
 		    }
@@ -223,9 +242,7 @@ class Account extends Controller {
 		        $success['validation'] = 'Nouveau mot de passe enregistré avec succès !';
 		    }  
 
-		    $membre = $this->account_informations();
-
-		    $this->view( 'home/account', ['erreur' => $erreur, 'success' => $success, 'membre' => $membre] );
+		    $this->view( 'home/account', ['erreur' => $erreur, 'success' => $success, 'membre' => $membre, 'annonces' => $annonces, 'messages' => $messages] );
 	    }
     }
 

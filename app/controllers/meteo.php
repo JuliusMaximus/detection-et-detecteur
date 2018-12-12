@@ -1,5 +1,6 @@
 <?php
 class Meteo extends Controller {
+    // Récupère les données Json depuis l'API et les transmets à la vue
     public function index() {
     	if (!empty($_POST)) {
     		extract($_POST);

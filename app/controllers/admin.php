@@ -1,5 +1,6 @@
 <?php
 class Admin extends Controller {
+	// Construction de la page d'administration
     public function index( int $id = 1 ) {
     	if ( !isset($_SESSION['admin']) ) {
     		header( 'Location: /connexion' );
@@ -18,7 +19,7 @@ class Admin extends Controller {
 	    // définition du premier commentaire de la page
 	    $start = ( $currentPage - 1 ) * $perPage;
 	    // Récupération des annoncess suivant la page demandée
-	    $annonces = DB::selectWithLimit( 'SELECT * FROM annonces ORDER BY validated DESC, id DESC LIMIT :start, :perPage', $start, $perPage );
+	    $annonces = DB::selectWithLimit( 'SELECT * FROM annonces ORDER BY validated, id DESC LIMIT :start, :perPage', $start, $perPage );
 
     	// Formatage de la date et du retour à ligne
         foreach ( $annonces as $key => $annonce ) {
@@ -33,7 +34,7 @@ class Admin extends Controller {
     }
 
     // Déconnexion de l'espace d'administration
-	  public function deconnexion() {
+	public function deconnexion() {
 	    if ( !isset( $_SESSION['admin'] ) ) {
 	        header( 'Location: /connexion' );
 	    }
@@ -61,7 +62,7 @@ class Admin extends Controller {
 
 	    $annonce = DB::select( 'SELECT picture from annonces where id = ?', [$idAnnonce] );
 
-	    unlink( ROOT . 'public/img/img_annonces' . $annonce[0]['picture'] ); // suppression image
+	    unlink( ROOT . 'public/img/img_annonces' . $annonce[0]['picture'] ); // suppression de l'image
 
 	    DB::delete( 'DELETE FROM annonces WHERE id = ?', [$idAnnonce]);
 

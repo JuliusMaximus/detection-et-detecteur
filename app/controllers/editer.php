@@ -1,5 +1,6 @@
 <?php
-class EDITER extends Controller {
+class Editer extends Controller {
+	// récupération et affichage de l'annonce à modifier
     public function index( int $id ) {
     	if ( !isset($_SESSION['id']) ) {
     		header ( 'Location: /connexion' );
@@ -54,14 +55,14 @@ class EDITER extends Controller {
 		    $this->view( 'home/editer', [ 'erreur' => $erreur, 'success' => $success, 'annonce' => $annonce[0] ] );  
 	    }
 	}
-
+	// Modification de la photo de l'annonce
 	public function updatePicture( int $idAnnonce ) {
     	if (!isset($_SESSION['id'])) {
-		  header('Location: /');
+		    header('Location: /');
 		}
 
 		$annonce = DB::select( 'SELECT * FROM annonces WHERE id = ?', [$idAnnonce] );
-
+		// on vérifie les eventuelles erreurs
 		if (isset($_FILES['picture']) && $_FILES['picture']['error'] == 0) {
 			$erreur = [];
 			$success = [];
@@ -78,22 +79,22 @@ class EDITER extends Controller {
 			    $name = bin2hex(random_bytes(8)) . '.' .$extension;
 
 			    if (move_uploaded_file($_FILES['picture']['tmp_name'], ROOT.'public/img/img_annonces/' . $name)) {
-			      // mise à jour de la BDD et suppression ancienne image
-			      DB::update('UPDATE annonces SET picture = :picture WHERE id = :id', [
+			        // mise à jour de la BDD et suppression ancienne image
+			        DB::update('UPDATE annonces SET picture = :picture WHERE id = :id', [
 			        'picture' => $name,
 			        'id'     => $idAnnonce
-			      ]);
-                  
-			      if ($annonce[0]['picture'] != 'annonce_default.jpg') {
-			        unlink(ROOT.'public/img/img_annonces/' . $annonce[0]['picture']);
-			      }
+			        ]);
+                  	// on supprime l'ancienne photo
+			        if ($annonce[0]['picture'] != 'annonce_default.jpg') {
+			        	unlink(ROOT.'public/img/img_annonces/' . $annonce[0]['picture']);
+			        }
 
-			      $annonce = DB::select( 'SELECT * FROM annonces WHERE id = ?', [$idAnnonce] );
+			        $annonce = DB::select( 'SELECT * FROM annonces WHERE id = ?', [$idAnnonce] );
 
-			      $success['updatePicture'] = 'Votre photo a été mis à jours !';
+			        $success['updatePicture'] = 'Votre photo a été mis à jours !';
 			    }
 			    else {
-			      $erreur['picture'] = 'Erreur lors de l\'envoi du fichier';
+			        $erreur['picture'] = 'Erreur lors de l\'envoi du fichier';
 			    }
 			}
 	      

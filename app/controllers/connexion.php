@@ -1,4 +1,5 @@
 <?php
+// Connexion à l'espace d'administration
 class Connexion extends Controller {
     public function index() {
     	if ( isset( $_SESSION['admin'] ) ) {
@@ -6,20 +7,20 @@ class Connexion extends Controller {
     	}
 
 	    if ( !empty( $_POST ) ) {
-	      extract( $_POST );
-	      // on vérifie si le compte existe
-	      $admin = $this->accountExists();
-	      // Récupération de l'id de session
-	      if ( $admin ) {
-	        $_SESSION['admin'] = 'OK';
+	        extract( $_POST );
+	        // on vérifie si le compte existe
+	        $admin = $this->accountExists();
+	        // Récupération de l'id de session
+	        if ( $admin ) {
+	            $_SESSION['admin'] = 'OK';
 
-	        header( 'Location: /admin' );
-	      }
-	      else {
-	        $erreur = 'Identifiants erronés';
-	      }
-	      // Transmition des erreurs à la vue
-	      $this->view( 'admin/connexion', ['erreur' => $erreur] );
+	            header( 'Location: /admin' );
+	        }
+	        else {
+	            $erreur = 'Identifiants erronés';
+	        }
+	        // Transmition des erreurs à la vue
+	        $this->view( 'admin/connexion', ['erreur' => $erreur] );
 	    }
 
 	    $this->view( 'admin/connexion' );

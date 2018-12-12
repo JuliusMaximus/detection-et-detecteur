@@ -1,11 +1,12 @@
 <?php
 class Associations extends Controller {
+	// Récupération et affichage de la liste des assos dans l'admin
     public function index( int $id = 1 ) {
     	if ( !isset($_SESSION['admin']) ) {
     		header( 'Location: /connexion' );
     	}
 
-    	// pagination de la liste des annoncess
+    	// pagination de la liste des assos
 	    $perPage = 10;
 	    $total = DB::selectAndCount( 'SELECT id FROM assos' ); // récupération du nombre de ligne
 	    $pagesTotal = ceil( $total/$perPage ); // calcule du nombre de page
@@ -15,15 +16,15 @@ class Associations extends Controller {
 	    } else {
 	        $currentPage = 1;
 	    }
-	    // définition du premier commentaire de la page
+	    // définition de la première assos de la page
 	    $start = ( $currentPage - 1 ) * $perPage;
-	    // Récupération des annoncess suivant la page demandée
+	    // Récupération des assos suivant la page demandée
 	    $assos = DB::selectWithLimit( 'SELECT * FROM assos ORDER BY id DESC LIMIT :start, :perPage', $start, $perPage );
 
       	$this->view( 'admin/associations', ['assos' => $assos, 'currentPage' => $currentPage, 'pagesTotal' => $pagesTotal] );
     }
 
-	// Suppression d'une annonce
+	// Suppression d'une assos
 	public function deleteAssos( int $idAssos ) {
 	    if ( !isset( $_SESSION['admin'] ) ) {
 	        header( 'Location: /connexion' );
@@ -33,7 +34,7 @@ class Associations extends Controller {
 
 	    header( 'Location: /associations' );
 	}
-
+	// insertion d'une assos après validation du formulaire
 	public function insertAssos() {
 		if ( !isset($_SESSION['admin']) ) {
 		  header( 'Location: /connexion' );

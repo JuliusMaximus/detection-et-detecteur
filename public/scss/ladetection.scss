@@ -1,10 +1,32 @@
+@import "variables";
+
 body {
 	margin: 0;
+	padding: 0;
+}
+
+h4 {
+	color: $color-orange !important;
 }
 
 section {
 	display: flex !important;
-	flex-direction: column;
-	justify-content: center;
-	min-height: 80vh;
+	flex-direction: row;
+}
+
+.scrollspy {
+	position: relative;
+	overflow-y: scroll;
+	height: 50vh;
+}
+
+a.list-group-item.active {
+	background-color: $color-orange;
+	border-color: $color-orange;
+}
+
+@media all and (max-width: 768px) {
+	section {
+		flex-direction: column;
+	}
 }

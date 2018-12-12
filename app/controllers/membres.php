@@ -1,5 +1,6 @@
 <?php
 class Membres extends Controller {
+	// Récupération et affichage de la liste des membres dans l'admin
     public function index( int $id = 1 ) {
     	if ( !isset($_SESSION['admin']) ) {
     		header( 'Location: /connexion' );
@@ -15,9 +16,9 @@ class Membres extends Controller {
 	    } else {
 	        $currentPage = 1;
 	    }
-	    // définition du premier commentaire de la page
+	    // définition du premier membre de la page
 	    $start = ( $currentPage - 1 ) * $perPage;
-	    // Récupération des annoncess suivant la page demandée
+	    // Récupération des membres suivant la page demandée
 	    $membres = DB::selectWithLimit( 'SELECT * FROM member ORDER BY id DESC LIMIT :start, :perPage', $start, $perPage );
 
     	// Formatage de la date et du retour à ligne
@@ -26,10 +27,11 @@ class Membres extends Controller {
         	$membres[$key]['created_at'] = date_format( $date, 'd/m/Y' );
       		$membres[$key]['description'] = nl2br( $membre['description'] );
     	}
+    	// Transmition à la vue
       	$this->view( 'admin/membres', ['membres' => $membres, 'currentPage' => $currentPage, 'pagesTotal' => $pagesTotal] );
     }
 
-	// Suppression d'un membre
+	// Suppression d'un membre via la liste
 	public function deleteMember( int $idMember ) {
 	    if ( !isset( $_SESSION['admin'] ) ) {
 	        header( 'Location: /connexion' );

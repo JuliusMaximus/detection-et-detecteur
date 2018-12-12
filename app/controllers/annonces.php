@@ -1,9 +1,10 @@
 <?php
 class Annonces extends Controller {
+    // Affichage du formilaire de création d'annonce
     public function index() {
         $this->view( 'home/annonces', [] );
     }
-  
+    // Validation du formulaire
     public function dropAnAds() {
         $membre = DB::select('SELECT * FROM member WHERE id = ?', [$_SESSION['id']]);
 
@@ -33,7 +34,8 @@ class Annonces extends Controller {
                 }
             }
 
-            if ( !$erreur ) { 
+            if ( !$erreur ) {
+                // récupération de l'extendion puis on renome l'image 
                 $extension = str_replace('image/', '', $_FILES['picture']['type']);
                 $name = bin2hex(random_bytes(8)) . '.' .$extension;
 
@@ -53,7 +55,7 @@ class Annonces extends Controller {
                     $success['validation']= 'Votre annonces a bien été soumise et sera publiée dans les 24h !';
                   }
                   else {
-                    $erreur['send'] = 'Erreur lors de l\'envoi du fichier';
+                      $erreur['send'] = 'Erreur lors de l\'envoi du fichier';
                   }
             }
             // Transmition des données à la vue
